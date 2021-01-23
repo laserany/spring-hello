@@ -15,7 +15,7 @@ public class HelloApplication {
 
 	@GetMapping("/")
 	public String hello() {
-		return "Hello";
+		return "Hello1";
 	}
 
 }
