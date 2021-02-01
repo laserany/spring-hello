@@ -1,14 +1,18 @@
 version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region region us-east-1 | docker login --username AWS --password-stdin 234959546424.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
-      - echo Entered the build phase...
-      - mvn clean package
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t hello .
+      - docker tag hello:latest 234959546424.dkr.ecr.us-east-1.amazonaws.com/hello:latest
   post_build:
     commands:
-      - echo Build completed successfully
-artifacts:
-  files:
-    - target/hello.jar
-  discard-paths: yes
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 234959546424.dkr.ecr.us-east-1.amazonaws.com/hello:latest
