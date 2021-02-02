@@ -16,3 +16,8 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 234959546424.dkr.ecr.us-east-1.amazonaws.com/hello:latest
+
+artifacts:
+  files:
+    - '**/*'
+  name: hello-$(date +%Y-%m-%d)
